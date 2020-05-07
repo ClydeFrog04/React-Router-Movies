@@ -6,6 +6,7 @@ import MovieCard from "./MovieCard";
 const Movie = (props) => {
     const [movie, setMovie] = useState();
     const params = useParams();
+    //console.log("Movie called");//:todo: with this uncommented, this log fires repeatedly. Does react constantly repaint the screen like a game scene would?
 
     useEffect(() => {
         const {id} = params;//todo: the tk video still shows this method => props.match.params;
@@ -24,20 +25,19 @@ const Movie = (props) => {
     }, [movie, params]);
 
     // Uncomment this only when you have moved on to the stretch goals
-    // const saveMovie = () => {
-    //   const addToSavedList = props.addToSavedList;
-    //   addToSavedList(movie)
-    // }
+    const saveMovie = () => {
+        const addToSavedList = props.addToSavedList;
+        addToSavedList(movie);
+    }
 
     if (!movie) {
         return <div>Loading movie information...</div>;
     }
 
-    const {title, director, metascore, stars} = movie;
     return (
         <div className="save-wrapper">
             <MovieCard movie={movie}/>
-            <div className="save-button">Save</div>
+            <div className="save-button" onClick={saveMovie}>Save</div>
         </div>
     );
 }
